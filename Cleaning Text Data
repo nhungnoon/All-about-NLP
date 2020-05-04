@@ -1,0 +1,20 @@
+# Remove not-alphanumber characters
+import re
+re.sub(r'[^a-zA-Z0-9]+', ' ',string) 
+
+# Stem words
+import nltk
+from nltk.stem.snowball import SnowballStemmer
+stem_=SnowballStemmer("english")
+stem_.stem('word needed to be stemed')
+
+# Remove stop words
+from nltk.corpus import stopwords
+stop_words = list(stopwords.words('english'))
+#remove stop words
+string = " ".join(item for item in string.split() if item.lower() not in stop_words) 
+   
+# Tokenize words
+import nltk
+from nltk.tokenize import word_tokenize, sent_tokenize
+word_tokenize(text)
