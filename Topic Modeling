@@ -1,0 +1,12 @@
+# Topic Modelling using Tfidf + Non-negative Matrix Factorization (NMF)
+# Tfidf takes into account word frequency while NMF only factorizes data into matrices
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.decomposition import NMF
+
+# set up tfidf using TfidfVectorizer
+tfidf_vectorizer = TfidfVectorizer(max_df=0.95, min_df=2, max_features=800, stop_words='english')
+# fit tfidf to the vocab
+tfidf = tfidf_vectorizer.fit_transform('vocab')
+
+# using Non-Negative Matrix Factorization with Tfidf
+nmf = NMF(n_components=50, random_state=0, alpha=.1, l1_ratio=.5, init='nndsvd', shuffle=True).fit(tfidf)
