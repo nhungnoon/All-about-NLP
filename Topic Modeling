@@ -4,9 +4,25 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import NMF
 
 # set up tfidf using TfidfVectorizer
-tfidf_vectorizer = TfidfVectorizer(max_df=0.95, min_df=2, max_features=800, stop_words='english')
+word_vectorizer = TfidfVectorizer(max_df=0.95, min_df=2, max_features=800, stop_words='english')
 # fit tfidf to the vocab
-tfidf = tfidf_vectorizer.fit_transform('vocab')
+tfidf = word_vectorizer.fit_transform('vocab')
 
-# using Non-Negative Matrix Factorization with Tfidf
+# Non-Negative Matrix Factorization with Tfidf
 nmf = NMF(n_components=50, random_state=0, alpha=.1, l1_ratio=.5, init='nndsvd', shuffle=True).fit(tfidf)
+
+# Topic Modelling using Gensim 
+import gensim
+from gensim import corpora
+# Split words
+string = [string.split()]
+# Create dictionary
+dictionary = corpora.Dictionary(string)
+word_matrix = [dictionary.doc2bow(doc) for doc in string]
+# Create the model
+Lda = gensim.models.ldamodel.LdaModel
+ldamodel = Lda(word_matrix, num_topics=5, id2word = dictionary, passes=50)
+#passes equal epochs - how many times the models keeps training
+# Show topic
+topics = ldamodel.show_topics(num_topics=1, num_words=10, formatted=False)
+topics[0][1] # show the word and the possibility 
