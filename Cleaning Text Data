@@ -2,11 +2,19 @@
 import re
 re.sub(r'[^a-zA-Z0-9]+', ' ',string) 
 
+# Replace words
+string = string.replace("things needed to be replaced","things replaced to be")
+
 # Stem words
 import nltk
 from nltk.stem.snowball import SnowballStemmer
 stem_=SnowballStemmer("english")
 stem_.stem('word needed to be stemed')
+
+# Lemmatize words
+from nltk.stem import WordNetLemmatizer
+lemmatizer = WordNetLemmatizer()
+lemmatizer.lemmatize('word needed to be lemmatized')
 
 # Remove stop words
 from nltk.corpus import stopwords
