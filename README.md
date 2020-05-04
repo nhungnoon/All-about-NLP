@@ -1,2 +1,2 @@
-# Gaming
-An attempt to create fun and simple game using Python
+# ALL about NLP
+An informational page of different ways to process text data
