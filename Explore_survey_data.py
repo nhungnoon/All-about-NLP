@@ -4,6 +4,7 @@
 
 
 # import packages
+# code citation Scikit-learn: Machine Learning in Python, Pedregosa et al., JMLR 12, pp. 2825-2830, 2011.
 from tkinter import Grid
 import pandas as pd
 from pandas.io.stata import value_label_mismatch_doc
@@ -16,9 +17,39 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline 
 from sklearn.model_selection import GridSearchCV 
 
+import nltk
+import os
+from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 # load in data
 survey_data = pd.read_csv('food_coded.csv')
 print(survey_data.head(1))
+
+# Explore open end answer
+# What is comfort_food
+comfort_food_df = survey_data.iloc[:,0:8]
+type(comfort_food_df)
+
+
+stop_words = list(stopwords.words('english'))
+#remove stop words
+def remove_stop_words(x):
+    if len(str(x)) <1:
+        return None
+    string = " ".join(item.lower() for item in str(x).split() if item.lower() not in stop_words) 
+    return string
+
+comfort_food_df['comfort_food'] = comfort_food_df['comfort_food'].apply(lambda x: remove_stop_words(x))
+
+
+# set up vectorizer
+# %%
+word_vectorizer = TfidfVectorizer(max_df=0.95, min_df=2, max_features=800, stop_words='english')
+train = comfort_food_df['comfort_food'][0:80].values.tolist()
+tfidf = word_vectorizer.fit_transform(train)
+tfidf_tokens = word_vectorizer.get_feature_names()
+tfidf_df = pd.DataFrame(data=tfidf.toarray(), columns = tfidf_tokens)
 
 
 # EDA
