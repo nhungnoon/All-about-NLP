@@ -1,5 +1,6 @@
 # Topic Modelling using Tfidf + Non-negative Matrix Factorization (NMF)
 # Tfidf takes into account word frequency while NMF only factorizes data into matrices
+# code citation Scikit-learn: Machine Learning in Python, Pedregosa et al., JMLR 12, pp. 2825-2830, 2011.
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import NMF
 
@@ -10,6 +11,7 @@ tfidf = word_vectorizer.fit_transform('vocab')
 
 # Non-Negative Matrix Factorization with Tfidf
 nmf = NMF(n_components=50, random_state=0, alpha=.1, l1_ratio=.5, init='nndsvd', shuffle=True).fit(tfidf)
+# code citation https://radimrehurek.com/gensim/index.html
 
 # Topic Modelling using Gensim 
 import gensim
