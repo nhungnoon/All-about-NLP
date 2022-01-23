@@ -1,2 +1,1 @@
-# ALL about NLP
-An informational page of different ways to process text data
+# ALL about processing data for modeling and modeling of course :)
