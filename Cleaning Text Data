@@ -26,3 +26,13 @@ string = " ".join(item for item in string.split() if item.lower() not in stop_wo
 import nltk
 from nltk.tokenize import word_tokenize, sent_tokenize
 word_tokenize(text)
+
+# web scrapping
+import requests
+from bs4 import BeautifulSoup
+#load a page
+
+results = requests.get("{the webpage with https:// start}")
+reformat_results = BeautifulSoup(results.content, 'lxml')
+print(reformat_results.prettify())
+
